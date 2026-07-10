@@ -28,6 +28,8 @@ def calculate_ws_bin(u):  # u59
 
 
 def calculate_ti(u, u_SD):
+    if u == 0:
+        return ""
     return u_SD / u
 
 
