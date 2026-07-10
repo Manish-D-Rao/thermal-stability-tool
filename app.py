@@ -249,20 +249,20 @@ if uploaded_file is None:
             * **Neutral ($-0.1 \\le Ri \\le 0.1$)**: Mixing is driven entirely by wind shear.
             * **Unstable ($Ri < -0.1$)**: Bubbling, vertical convection. Turbulent wind.
         """)
-    with col2:
-        st.subheader("Typical Wind Mast Layout")
-        # Visual diagram
-        st.markdown("""
-        ```text
-        Height 2: 59m ──[Temp Sensor 2]──[ Wind Sensor 2] (u59, t59)
-                       │
-                       │   (Atmospheric Boundary Layer)
-                       │
-        Height 1: 22m ──[Temp Sensor 1]──[Wind Sensor 1] (u22, t22)
-                       │
-        Ground        ─┴──────────────────────────────────────────────
-        ```
-        """)
+    # with col2:
+    #     st.subheader("Typical Wind Mast Layout")
+    #     # Visual diagram
+    #     st.markdown("""
+    #     ```text
+    #     Height 2: 59m ──[Temp Sensor 2]──[ Wind Sensor 2] (u59, t59)
+    #                    │
+    #                    │   (Atmospheric Boundary Layer)
+    #                    │
+    #     Height 1: 22m ──[Temp Sensor 1]──[Wind Sensor 1] (u22, t22)
+    #                    │
+    #     Ground        ─┴──────────────────────────────────────────────
+    #     ```
+    #     """)
 
 else:
     # --- Load Data with Encoding Fallback ---
