@@ -4,12 +4,26 @@ import streamlit as st
 
 from src.constants import REQUIRED_COLUMNS
 from src.calculations import (
-    calculate_ri, calculate_ws_bin, calculate_ti, calculate_shear,
-    calculate_ws120, calculate_stability, calculate_delta_t,
-    process_dataframe, build_classification_summary
+    calculate_ri,
+    calculate_ws_bin,
+    calculate_ti,
+    calculate_shear,
+    calculate_ws120,
+    calculate_stability,
+    calculate_delta_t,
+    process_dataframe,
+    build_classification_summary,
 )
-from src.validation import validate_upload, sanitize_numeric_columns, data_quality_summary
-from src.charts import chart_stability_by_hour, chart_turbulence_distribution, chart_stability_by_windspeed
+from src.validation import (
+    validate_upload,
+    sanitize_numeric_columns,
+    data_quality_summary,
+)
+from src.charts import (
+    chart_stability_by_hour,
+    chart_turbulence_distribution,
+    chart_stability_by_windspeed,
+)
 
 st.set_page_config(
     page_title="Thermal Stability Tool | GAWC Renewables",
@@ -49,7 +63,9 @@ def page_landing():
             st.session_state.page = "manual"
             st.rerun()
     with col2:
-        if st.button("Upload Excel / CSV", use_container_width=True, key="go_upload"):
+        if st.button(
+            "Upload Excel / CSV (CSV faster)", use_container_width=True, key="go_upload"
+        ):
             st.session_state.page = "upload"
             st.rerun()
 
@@ -68,12 +84,18 @@ def page_manual():
 
         with c1:
             ws59 = st.number_input("Ch2_Speed_59m_E [m/s]", value=0.0, format="%.3f")
-            ws59_sd = st.number_input("Ch2_Speed_59m_E_SD [m/s]", value=0.0, format="%.3f")
+            ws59_sd = st.number_input(
+                "Ch2_Speed_59m_E_SD [m/s]", value=0.0, format="%.3f"
+            )
             ws22 = st.number_input("Ch6_Speed_22m_E [m/s]", value=0.0, format="%.3f")
 
         with c2:
-            t59 = st.number_input("Ch16_Temperature_59m_N [°C]", value=0.0, format="%.3f")
-            t22 = st.number_input("Ch15_Temperature_22m_N [°C]", value=0.0, format="%.3f")
+            t59 = st.number_input(
+                "Ch16_Temperature_59m_N [°C]", value=0.0, format="%.3f"
+            )
+            t22 = st.number_input(
+                "Ch15_Temperature_22m_N [°C]", value=0.0, format="%.3f"
+            )
 
         submitted = st.form_submit_button("Calculate", use_container_width=True)
 
@@ -91,7 +113,10 @@ def page_manual():
 
         r1c1, r1c2 = st.columns(2)
         r1c1.metric("Ri", f"{ri:.2f}" if not pd.isna(ri) else "N/A")
-        r1c2.metric("Stability", stability.title() if stability and not pd.isna(stability) else "N/A")
+        r1c2.metric(
+            "Stability",
+            stability.title() if stability and not pd.isna(stability) else "N/A",
+        )
 
         r2c1, r2c2 = st.columns(2)
         r2c1.metric("Shear", f"{shear:.4f}" if not pd.isna(shear) else "N/A")
@@ -114,7 +139,9 @@ def page_upload():
     st.write("")
     st.subheader("Upload File")
 
-    uploaded_file = st.file_uploader("Upload .xlsx or .csv", type=["xlsx", "csv"])
+    uploaded_file = st.file_uploader(
+        "Upload .xlsx or .csv (CSV faster)", type=["xlsx", "csv"]
+    )
 
     if uploaded_file is None:
         st.info("Upload a file containing the required columns to continue.")
@@ -129,14 +156,16 @@ def page_upload():
 
     try:
         if uploaded_file.name.lower().endswith(".csv"):
-            raw_df = pd.read_csv(uploaded_file)
+            raw_df = pd.read_csv(uploaded_file, encoding="cp1252")
         else:
-            raw_df = pd.read_excel(uploaded_file)
+            raw_df = pd.read_excel(uploaded_file, sheet_name="Method2")
     except pd.errors.EmptyDataError:
         st.error("The uploaded file has no data to read.")
         return
     except Exception as e:
-        st.error(f"Could not read the uploaded file - it may be corrupted or in an unsupported format: {e}")
+        st.error(
+            f"Could not read the uploaded file - it may be corrupted or in an unsupported format: {e}"
+        )
         return
 
     upload_errors = validate_upload(raw_df)
@@ -155,10 +184,14 @@ def page_upload():
     dirty_columns = {col: n for col, n in invalid_numeric.items() if n > 0}
     if dirty_columns:
         details = ", ".join(f"{col} ({n})" for col, n in dirty_columns.items())
-        st.warning(f"Non-numeric values were found and treated as missing in: {details}.")
+        st.warning(
+            f"Non-numeric values were found and treated as missing in: {details}."
+        )
 
     st.write("")
-    process_clicked = st.button("Process File", type="primary", use_container_width=True)
+    process_clicked = st.button(
+        "Process File", type="primary", use_container_width=True
+    )
 
     if process_clicked:
         st.session_state.processed_df = process_dataframe(raw_df)
@@ -207,9 +240,13 @@ def page_upload():
         with tab1:
             st.pyplot(chart_stability_by_hour(processed_df), use_container_width=True)
         with tab2:
-            st.pyplot(chart_turbulence_distribution(processed_df), use_container_width=True)
+            st.pyplot(
+                chart_turbulence_distribution(processed_df), use_container_width=True
+            )
         with tab3:
-            st.pyplot(chart_stability_by_windspeed(processed_df), use_container_width=True)
+            st.pyplot(
+                chart_stability_by_windspeed(processed_df), use_container_width=True
+            )
 
 
 def main():
