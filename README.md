@@ -42,47 +42,37 @@ This project converts the Excel workflow into a user-friendly web application th
 
 ## Manual Calculation
 
-> Replace the image below with your upload page screenshot.
-
 ![Upload Page](images/manual-calc.png)
 
 ---
 
 ## Calculated Results
 
-![Results](images/Summary and Export processed data.png)
+![Results](images/Summary-and-Export-processed-data.png)
 
 ---
 
 ## Graph 1
 
-> Replace this image with your first graph.
-
-![Graph 1](images/graph1.png)
+![Graph 1](images/Atmospheric-Stability-by_Hour-of-Day-Graph_1.png)
 
 ---
 
 ## Graph 2
 
-> Replace this image with your second graph.
-
-![Graph 2](images/graph2.png)
+![Graph 2](images/Wind-Speed-and-Stability-Distribution.png)
 
 ---
 
 ## Graph 3
 
-> Replace this image with your third graph.
-
-![Graph 3](images/graph3.png)
+![Graph 3](images/Turbulence-Distribution-Graph_2.png)
 
 ---
 
 ## Export Results
 
-> Replace this image with your download/export output screen.
-
-![Export](images/export.png)
+![Export](images/Summary-and-Export-processed-data.png)
 
 ---
 
@@ -194,14 +184,13 @@ thermal-stability-tool/
 ├── data/
 │   ├── sample_input.xlsx
 │
-├── uploads/
 │
-├── outputs/
 │
 ├── utils/
 │   ├── calculations.py
+│   ├── charts.py
+│   ├── constants.py
 │   ├── validation.py
-│   ├── graphs.py
 │
 ├── images/
 │   ├── homepage.png
