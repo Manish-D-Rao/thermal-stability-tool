@@ -158,7 +158,7 @@ def page_upload():
         if uploaded_file.name.lower().endswith(".csv"):
             raw_df = pd.read_csv(uploaded_file, encoding="cp1252")
         else:
-            raw_df = pd.read_excel(uploaded_file, sheet_name="Method2")
+            raw_df = pd.read_excel(uploaded_file)
     except pd.errors.EmptyDataError:
         st.error("The uploaded file has no data to read.")
         return
