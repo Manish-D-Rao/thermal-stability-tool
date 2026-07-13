@@ -30,25 +30,27 @@ This project converts the Excel workflow into a user-friendly web application th
 
 ## Home Page
 
-> Replace the image below with your homepage screenshot.
-
-![Home Page](images/homepage.png)
+![Home Page](images/home-page.png)
 
 ---
 
 ## Upload Dataset
 
+![Upload Page](images/upload-file.png)
+
+---
+
+## Manual Calculation
+
 > Replace the image below with your upload page screenshot.
 
-![Upload Page](images/upload-page.png)
+![Upload Page](images/manual-calc.png)
 
 ---
 
 ## Calculated Results
 
-> Replace the image below with your output table.
-
-![Results](images/results-table.png)
+![Results](images/Summary and Export processed data.png)
 
 ---
 
