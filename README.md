@@ -164,9 +164,6 @@ The calculated Richardson Number (RI) is used to classify atmospheric stability 
 - NumPy
 - OpenPyXL
 - Matplotlib
-- Plotly
-
-*(Modify this list if your project uses different libraries.)*
 
 ---
 
@@ -178,69 +175,35 @@ thermal-stability-tool/
 ├── app.py
 ├── requirements.txt
 ├── README.md
+├── .gitignore
 │
 ├── data/
-│   ├── sample_input.xlsx
+│   ├── Thermal_stability_Final1.csv
+│   └── Thermal_stability_Final1.xlsx
 │
+├── sample input files/
+│   ├── dummy_thermal_stability_input.xlsx
+│   └── sample_met_mast_data.xlsx
 │
-│
-├── utils/
+├── src/
+│   ├── __init__.py
 │   ├── calculations.py
 │   ├── charts.py
 │   ├── constants.py
-│   ├── validation.py
+│   └── validation.py
 │
-├── images/
-│   ├── homepage.png
-│   ├── upload-page.png
-│   ├── results-table.png
-│   ├── graph1.png
-│   ├── graph2.png
-│   ├── graph3.png
-│   └── export.png
+├── notebooks/
+│   └── analysis.ipynb
 │
-└── assets/
+└── images/
+    ├── home-page.png
+    ├── upload-file.png
+    ├── manual-calc.png
+    ├── graph1.png
+    ├── graph2.png
+    ├── graph3.png
+    └── summary-export.png
 ```
-
----
-
-# Installation
-
-Clone the repository
-
-```bash
-git clone https://github.com/<your-username>/<repository-name>.git
-```
-
-Navigate into the project directory
-
-```bash
-cd <repository-name>
-```
-
-Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# Running the Application
-
-```bash
-streamlit run app.py
-```
-
-or
-
-```bash
-python app.py
-```
-
-depending on your project setup.
-
----
 
 # Output
 
@@ -253,7 +216,6 @@ The application generates:
 - Wind Speed at 120 m
 - Temperature Difference (ΔT)
 - Atmospheric Stability Classification
-- Interactive Graphs
 - Downloadable Output File
 
 ---
@@ -269,17 +231,6 @@ The application generates:
 
 ---
 
-# Future Improvements
-
-- Batch file processing
-- Support for additional thermal stability methods
-- Advanced analytics dashboard
-- GIS integration
-- Time-series analysis
-- Cloud deployment
-
----
-
 # Contributors
 
 - **Manish Rao**
@@ -291,8 +242,4 @@ The application generates:
 
 This project was developed as part of a technical assignment for automating the **Thermal Stability Analysis Tool** used in **Wind Resource Assessment (WRA)**. The objective was to transform an Excel-based workflow into a scalable Python/web application implementing **Method 2** calculations.
 
----
 
-## License
-
-This project is intended for educational and internship purposes.
