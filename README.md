@@ -30,57 +30,49 @@ This project converts the Excel workflow into a user-friendly web application th
 
 ## Home Page
 
-> Replace the image below with your homepage screenshot.
-
-![Home Page](images/homepage.png)
+![Home Page](images/home-page.png)
 
 ---
 
 ## Upload Dataset
 
-> Replace the image below with your upload page screenshot.
+![Upload Page](images/upload-file.png)
 
-![Upload Page](images/upload-page.png)
+---
+
+## Manual Calculation
+
+![Upload Page](images/manual-calc.png)
 
 ---
 
 ## Calculated Results
 
-> Replace the image below with your output table.
-
-![Results](images/results-table.png)
+![Results](images/Summary-and-Export-processed-data.png)
 
 ---
 
 ## Graph 1
 
-> Replace this image with your first graph.
-
-![Graph 1](images/graph1.png)
+![Graph 1](images/Atmospheric-Stability-by_Hour-of-Day-Graph_1.png)
 
 ---
 
 ## Graph 2
 
-> Replace this image with your second graph.
-
-![Graph 2](images/graph2.png)
+![Graph 2](images/Wind-Speed-and-Stability-Distribution.png)
 
 ---
 
 ## Graph 3
 
-> Replace this image with your third graph.
-
-![Graph 3](images/graph3.png)
+![Graph 3](images/Turbulence-Distribution-Graph_2.png)
 
 ---
 
 ## Export Results
 
-> Replace this image with your download/export output screen.
-
-![Export](images/export.png)
+![Export](images/Summary-and-Export-processed-data.png)
 
 ---
 
@@ -115,13 +107,11 @@ The uploaded data is validated before performing calculations.
 
 The calculated Richardson Number (RI) is used to classify atmospheric stability into categories such as:
 
-- Very Unstable
+- Strongly Unstable
 - Unstable
-- Slightly Unstable
 - Neutral
-- Slightly Stable
 - Stable
-- Very Stable
+- Strongly Stable
 
 ---
 
@@ -174,9 +164,6 @@ The calculated Richardson Number (RI) is used to classify atmospheric stability 
 - NumPy
 - OpenPyXL
 - Matplotlib
-- Plotly
-
-*(Modify this list if your project uses different libraries.)*
 
 ---
 
@@ -188,70 +175,35 @@ thermal-stability-tool/
 ├── app.py
 ├── requirements.txt
 ├── README.md
+├── .gitignore
 │
 ├── data/
-│   ├── sample_input.xlsx
+│   ├── Thermal_stability_Final1.csv
+│   └── Thermal_stability_Final1.xlsx
 │
-├── uploads/
+├── sample input files/
+│   ├── dummy_thermal_stability_input.xlsx
+│   └── sample_met_mast_data.xlsx
 │
-├── outputs/
-│
-├── utils/
+├── src/
+│   ├── __init__.py
 │   ├── calculations.py
-│   ├── validation.py
-│   ├── graphs.py
+│   ├── charts.py
+│   ├── constants.py
+│   └── validation.py
 │
-├── images/
-│   ├── homepage.png
-│   ├── upload-page.png
-│   ├── results-table.png
-│   ├── graph1.png
-│   ├── graph2.png
-│   ├── graph3.png
-│   └── export.png
+├── notebooks/
+│   └── analysis.ipynb
 │
-└── assets/
+└── images/
+    ├── home-page.png
+    ├── upload-file.png
+    ├── manual-calc.png
+    ├── graph1.png
+    ├── graph2.png
+    ├── graph3.png
+    └── summary-export.png
 ```
-
----
-
-# Installation
-
-Clone the repository
-
-```bash
-git clone https://github.com/<your-username>/<repository-name>.git
-```
-
-Navigate into the project directory
-
-```bash
-cd <repository-name>
-```
-
-Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# Running the Application
-
-```bash
-streamlit run app.py
-```
-
-or
-
-```bash
-python app.py
-```
-
-depending on your project setup.
-
----
 
 # Output
 
@@ -264,7 +216,6 @@ The application generates:
 - Wind Speed at 120 m
 - Temperature Difference (ΔT)
 - Atmospheric Stability Classification
-- Interactive Graphs
 - Downloadable Output File
 
 ---
@@ -280,17 +231,6 @@ The application generates:
 
 ---
 
-# Future Improvements
-
-- Batch file processing
-- Support for additional thermal stability methods
-- Advanced analytics dashboard
-- GIS integration
-- Time-series analysis
-- Cloud deployment
-
----
-
 # Contributors
 
 - **Manish Rao**
@@ -302,8 +242,4 @@ The application generates:
 
 This project was developed as part of a technical assignment for automating the **Thermal Stability Analysis Tool** used in **Wind Resource Assessment (WRA)**. The objective was to transform an Excel-based workflow into a scalable Python/web application implementing **Method 2** calculations.
 
----
 
-## License
-
-This project is intended for educational and internship purposes.
