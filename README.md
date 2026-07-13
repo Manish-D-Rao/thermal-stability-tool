@@ -107,13 +107,11 @@ The uploaded data is validated before performing calculations.
 
 The calculated Richardson Number (RI) is used to classify atmospheric stability into categories such as:
 
-- Very Unstable
+- Strongly Unstable
 - Unstable
-- Slightly Unstable
 - Neutral
-- Slightly Stable
 - Stable
-- Very Stable
+- Strongly Stable
 
 ---
 
