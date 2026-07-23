@@ -1,9 +1,5 @@
 import pandas as pd
-from src.constants import REQUIRED_COLUMNS, NUMERIC_COLUMNS
-
-def validate_columns(df: pd.DataFrame):
-    return [c for c in REQUIRED_COLUMNS if c not in df.columns]
-
+from src.constants import NUMERIC_COLUMNS
 
 def validate_upload(df: pd.DataFrame):
     errors = []
@@ -15,12 +11,6 @@ def validate_upload(df: pd.DataFrame):
     if df.empty:
         errors.append("The uploaded file is empty - it contains headers but no data rows.")
         return errors
-
-    missing = validate_columns(df)
-    if missing:
-        errors.append(
-            "The uploaded file is missing required column(s): " + ", ".join(missing)
-        )
 
     return errors
 

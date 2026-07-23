@@ -10,6 +10,7 @@ from src.calculations import (
 )
 from src.validation import validate_upload, sanitize_numeric_columns, data_quality_summary
 from src.charts import chart_stability_by_hour, chart_turbulence_distribution, chart_stability_by_windspeed
+from src.column_mapping import build_rename_map
 
 st.set_page_config(
     page_title="Thermal Stability Tool | GAWC Renewables",
@@ -39,8 +40,8 @@ def inject_css():
 
 
 def page_landing():
-    st.title("THERMAL STABILITY TOOL")
-    st.subheader("GAWC Renewables")
+    st.title("THERMAL STABILITY CALCULATOR")
+    
     st.write("")
 
     col1, col2 = st.columns(2, gap="large")
@@ -105,7 +106,7 @@ def page_manual():
 
 
 def page_upload():
-    st.title("Upload & Batch Processing")
+    st.title("Upload File")
 
     if st.button("← Back to Home"):
         st.session_state.page = "landing"
@@ -117,10 +118,7 @@ def page_upload():
     uploaded_file = st.file_uploader("Upload .xlsx or .csv", type=["xlsx", "csv"])
 
     if uploaded_file is None:
-        st.info("Upload a file containing the required columns to continue.")
-        with st.expander("Required column names"):
-            for col in REQUIRED_COLUMNS:
-                st.write(f"- {col}")
+        st.info("Upload a file to continue. On the next step, you'll tell the app which of your columns holds each value.")
         return
 
     if uploaded_file.size == 0:
@@ -143,25 +141,58 @@ def page_upload():
     if upload_errors:
         for msg in upload_errors:
             st.error(msg)
-        with st.expander("Required column names"):
-            for col in REQUIRED_COLUMNS:
-                st.write(f"- {col}")
         return
 
     st.subheader("Preview")
     st.dataframe(raw_df, use_container_width=True, height=320)
 
-    raw_df, invalid_numeric = sanitize_numeric_columns(raw_df)
-    dirty_columns = {col: n for col, n in invalid_numeric.items() if n > 0}
-    if dirty_columns:
-        details = ", ".join(f"{col} ({n})" for col, n in dirty_columns.items())
-        st.warning(f"Non-numeric values were found and treated as missing in: {details}.")
+    # If a different file is uploaded, clear out any old typed-in column
+    # names so the text boxes below don't show stale values from before.
+    if st.session_state.get("last_uploaded_name") != uploaded_file.name:
+        for param_name in REQUIRED_COLUMNS:
+            st.session_state.pop(f"map_{param_name}", None)
+        st.session_state.last_uploaded_name = uploaded_file.name
+        st.session_state.processed_df = None
+
+    st.write("")
+    st.subheader("Column Mapping")
+    st.caption(
+        "Type the exact name of the column in your file that holds each value below "
+        "(check the list under 'Columns found in your file' for the exact spelling)."
+    )
+
+    with st.expander("Columns found in your file"):
+        for col in raw_df.columns:
+            st.write(f"- {col}")
+
+    file_columns = list(raw_df.columns)
+
+    typed_values = {}
+    map_c1, map_c2 = st.columns(2)
+    for i, param_name in enumerate(REQUIRED_COLUMNS):
+        target = map_c1 if i % 2 == 0 else map_c2
+        typed_values[param_name] = target.text_input(
+            param_name, value="", key=f"map_{param_name}"
+        )
 
     st.write("")
     process_clicked = st.button("Process File", type="primary", use_container_width=True)
 
     if process_clicked:
-        st.session_state.processed_df = process_dataframe(raw_df)
+        rename_map, missing_parameters = build_rename_map(typed_values, file_columns)
+        if missing_parameters:
+            st.error(
+                "Could not find a matching column for: " + ", ".join(missing_parameters)
+                + ". Check the spelling against the column list above and try again."
+            )
+        else:
+            mapped_df = raw_df.rename(columns=rename_map)
+            mapped_df, invalid_numeric = sanitize_numeric_columns(mapped_df)
+            dirty_columns = {col: n for col, n in invalid_numeric.items() if n > 0}
+            if dirty_columns:
+                details = ", ".join(f"{col} ({n})" for col, n in dirty_columns.items())
+                st.warning(f"Non-numeric values were found and treated as missing in: {details}.")
+            st.session_state.processed_df = process_dataframe(mapped_df)
 
     if "processed_df" in st.session_state and st.session_state.processed_df is not None:
         processed_df = st.session_state.processed_df
