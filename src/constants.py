@@ -1,13 +1,4 @@
-import pandas as pd
-
-HEIGHT_UPPER = 59
-HEIGHT_LOWER = 22
-DELTA_Z = HEIGHT_UPPER - HEIGHT_LOWER
-EXTRAPOLATION_HEIGHT = 105
-GRAVITY = 9.81
-
 STABILITY_ORDER = ["Stable", "Neutral", "Unstable"]
-STABILITY_ORDER_5CAT = ["strongly unstable", "unstable", "neutral", "stable", "strongly stable"]
 
 COLOR_STABLE = "#ED7D31"
 COLOR_UNSTABLE = "#FFC000"
